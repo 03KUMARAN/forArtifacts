@@ -1,5 +1,7 @@
 name : testproject
 on : push
+env:
+  hello : value
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -52,4 +54,4 @@ jobs:
       - name: copy from previous jobs
         uses: actions/download-artifact@v4
       - name: deploy
-        run : echo "deploying ..."
+        run : echo " ${{env.hello}}deploying ..."
