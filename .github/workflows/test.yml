@@ -1,0 +1,25 @@
+name : testproject
+on : push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name : Get code
+        uses : actions/checkout@v3
+      - name : install
+        run : npm ci
+      - name : build
+        run : npm run build
+      - name : artifact upload
+        uses : actions/upload-artifact@v3
+        with : 
+          name: next -files
+          path : |
+            .next
+            package.json
+  deploy:
+    needs: test
+    runs-on : ubuntu-latest
+    steps:
+      - name: deploy
+        run : echo "deploying ..."
