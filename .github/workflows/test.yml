@@ -21,5 +21,13 @@ jobs:
     needs: test
     runs-on : ubuntu-latest
     steps:
+      - name : download artifact
+        uses : actions/download-artifact@v4
+        with:
+          name : next -files
+      - name : print directoruies
+        run : ls
+      - name: copy from previous jobs
+        uses: actions/download-artifact@v4
       - name: deploy
         run : echo "deploying ..."
