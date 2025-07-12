@@ -3,6 +3,8 @@ on : push
 jobs:
   test:
     runs-on: ubuntu-latest
+    outputs:
+      file: ${{ steps.publish.outputs.some}}
     steps:
       - name : Get code
         uses : actions/checkout@v3
@@ -10,8 +12,12 @@ jobs:
         run : npm ci
       - name : build
         run : npm run build
-      - name : publish name
-        run : find .next/build/chunks/ -type f -name "*.js" -exec echo'{}'';'
+      - name : set values
+        id  : publish
+        run : echo "some = 123" >> $GIHUB_OUTPUT
+
+      # - name : publish name
+      #   run : find .next/build/chunks/ -type f -name "*.js" -exec echo'{}'';'
       - name : artifact upload
         uses : actions/upload-artifact@v4
         with : 
@@ -29,6 +35,8 @@ jobs:
           name : next -files
       - name : print directoruies
         run : ls
+      - name : values
+        run : ecgo "${{needs.build.outputs.file}} "
       - name: copy from previous jobs
         uses: actions/download-artifact@v4
       - name: deploy
