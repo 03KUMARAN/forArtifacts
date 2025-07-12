@@ -14,7 +14,7 @@ jobs:
         run : npm run build
       - name : set values
         id  : publish
-        run : echo "some = 123" >> $GIHUB_OUTPUT
+        run : echo "some = 123" >> $GITHUB_OUTPUT
 
       # - name : publish name
       #   run : find .next/build/chunks/ -type f -name "*.js" -exec echo'{}'';'
