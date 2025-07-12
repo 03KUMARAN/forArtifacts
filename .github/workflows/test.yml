@@ -4,6 +4,7 @@ env:
   hello : value
   password: ${{secrets.PASSWORD}}
 jobs:
+  environment: fortest
   test:
     runs-on: ubuntu-latest
     outputs:
@@ -24,7 +25,7 @@ jobs:
         id  : publish
         run : echo "some=123" >> $GITHUB_OUTPUT
       - name : print 
-        run : echo " ${{env.password}}"
+        run : echo " ${{env.password}}  , ${{secrets.PASS}}"
       # - name : publish name
       #   run : find .next/build/chunks/ -type f -name "*.js" -exec echo'{}'';'
       - name : artifact upload
