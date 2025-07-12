@@ -2,6 +2,7 @@ name : testproject
 on : push
 env:
   hello : value
+  password: ${{secrets.PASSWORD}}
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -22,7 +23,8 @@ jobs:
       - name : set values
         id  : publish
         run : echo "some=123" >> $GITHUB_OUTPUT
-
+      - name : print 
+        run : echo " ${{env.password}}"
       # - name : publish name
       #   run : find .next/build/chunks/ -type f -name "*.js" -exec echo'{}'';'
       - name : artifact upload
