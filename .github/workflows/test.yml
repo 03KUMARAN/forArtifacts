@@ -36,7 +36,7 @@ jobs:
       - name : print directoruies
         run : ls
       - name : values
-        run : ecgo "${{needs.build.outputs.file}} "
+        run : echo "${{needs.build.outputs.file}} "
       - name: copy from previous jobs
         uses: actions/download-artifact@v4
       - name: deploy
