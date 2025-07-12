@@ -8,6 +8,11 @@ jobs:
     steps:
       - name : Get code
         uses : actions/checkout@v3
+      - name : cache
+        uses : actions/cache@v4
+        with :
+          path: ~/.npm
+          key : deps-${{hashFiles('**/pcakage-lock.json')}}
       - name : install
         run : npm ci
       - name : build
@@ -29,6 +34,13 @@ jobs:
     needs: test
     runs-on : ubuntu-latest
     steps:
+      - name : cache
+        uses : actions/cache@v4
+        with :
+          path: ~/.npm
+          key : deps-${{hashFiles('**/pcakage-lock.json')}}
+      - name : install ll
+        run : npm ci
       - name : download artifact
         uses : actions/download-artifact@v4
         with:
