@@ -4,8 +4,9 @@ env:
   hello : value
   password: ${{secrets.PASSWORD}}
 jobs:
-  environment: fortest
+  
   test:
+    environment: fortest
     runs-on: ubuntu-latest
     outputs:
       file: ${{ steps.publish.outputs.some}}
