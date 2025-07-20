@@ -1,5 +1,7 @@
 name : testproject
-on : push
+on : |
+ push
+ workflow_dispatch
 env:
   hello : value
   password: ${{secrets.PASSWORD}}
