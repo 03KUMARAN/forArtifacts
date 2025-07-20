@@ -11,31 +11,37 @@ jobs:
     outputs:
       file: ${{ steps.publish.outputs.some}}
     steps:
-      - name : Get code
-        uses : actions/checkout@v3
-      - name : cache
-        uses : actions/cache@v4
+
+      - name : using custom actions
+        uses : 03KUMARAN/basic-action@v1
         with :
-          path: ~/.npm
-          key : deps-${{hashFiles('**/pcakage-lock.json')}}
-      - name : install
-        run : npm ci
-      - name : build
-        run : npm run build
-      - name : set values
-        id  : publish
-        run : echo "some=123" >> $GITHUB_OUTPUT
-      - name : print 
-        run : echo " ${{env.password}}  , ${{secrets.PASS}}"
+          node-version : '18'
+          path : '.'
+      # - name : Get code
+      #   uses : actions/checkout@v3
+      # - name : cache
+      #   uses : actions/cache@v4
+      #   with :
+      #     path: ~/.npm
+      #     key : deps-${{hashFiles('**/pcakage-lock.json')}}
+      # - name : install
+      #   run : npm ci
+      # - name : build
+      #   run : npm run build
+      # - name : set values
+      #   id  : publish
+      #   run : echo "some=123" >> $GITHUB_OUTPUT
+      # - name : print 
+      #   run : echo " ${{env.password}}  , ${{secrets.PASS}}"
       # - name : publish name
       #   run : find .next/build/chunks/ -type f -name "*.js" -exec echo'{}'';'
-      - name : artifact upload
-        uses : actions/upload-artifact@v4
-        with : 
-          name: next -files
-          path : |
-            .next
-            package.json
+      # - name : artifact upload
+      #   uses : actions/upload-artifact@v4
+      #   with : 
+      #     name: next -files
+      #     path : |
+      #       .next
+      #       package.json
   deploy:
     needs: test
     runs-on : ubuntu-latest
@@ -50,7 +56,7 @@ jobs:
       - name : download artifact
         uses : actions/download-artifact@v4
         with:
-          name : next -files
+          name : artifact
       - name : print directoruies
         run : ls
       - name : values
